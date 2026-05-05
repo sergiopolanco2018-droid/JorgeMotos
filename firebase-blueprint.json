@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A product available in the store",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "image": { "type": "string" },
+        "description": { "type": "string" },
+        "specs": { "type": "object" },
+        "rating": { "type": "number" },
+        "reviews": { "type": "number" }
+      },
+      "required": ["name", "price", "category", "description"]
+    },
+    "BlogPost": {
+      "title": "Blog Post",
+      "description": "A news article or blog entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "image": { "type": "string" },
+        "date": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["title", "excerpt", "date", "category"]
+    },
+    "SiteContent": {
+      "title": "Site Content",
+      "description": "General text content for the website",
+      "type": "object",
+      "properties": {
+        "heroTitle": { "type": "string" },
+        "heroSubtitle": { "type": "string" },
+        "aboutTitle": { "type": "string" },
+        "aboutText": { "type": "string" },
+        "aboutImage": { "type": "string" },
+        "aboutSectionTitle": { "type": "string" },
+        "aboutSectionText": { "type": "string" },
+        "workshopTitle": { "type": "string" },
+        "workshopText": { "type": "string" },
+        "featuredCategories": { "type": "array" },
+        "benefits": { "type": "array" }
+      }
+    },
+    "ContactInfo": {
+      "title": "Contact Info",
+      "description": "Contact details and business hours",
+      "type": "object",
+      "properties": {
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "hoursWeek": { "type": "string" },
+        "hoursSat": { "type": "string" },
+        "locationTitle": { "type": "string" },
+        "hoursTitle": { "type": "string" },
+        "contactTitle": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "products": {
+      "schema": "Product",
+      "description": "Store products"
+    },
+    "blogPosts": {
+      "schema": "BlogPost",
+      "description": "Blog posts"
+    },
+    "config/siteContent": {
+      "schema": "SiteContent",
+      "description": "Website text configuration"
+    },
+    "config/contactInfo": {
+      "schema": "ContactInfo",
+      "description": "Contact information configuration"
+    }
+  }
+}

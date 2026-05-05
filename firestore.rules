@@ -1,0 +1,90 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedAdmin() {
+      return isSignedIn() && 
+             request.auth.token.email == "sergio.polanco2018@gmail.com" && 
+             request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Validation Blueprints ---
+
+    function isValidProduct(data) {
+      return data.keys().hasAll(['id', 'name', 'price', 'category', 'description']) &&
+             data.id is string && data.id.size() <= 128 &&
+             data.name is string && data.name.size() <= 200 &&
+             data.price is number && data.price >= 0 &&
+             data.category is string &&
+             data.description is string && data.description.size() <= 5000;
+    }
+
+    function isValidBlogPost(data) {
+      return data.keys().hasAll(['id', 'title', 'excerpt', 'date', 'category']) &&
+             data.id is string &&
+             data.title is string && data.title.size() <= 300 &&
+             data.excerpt is string && data.excerpt.size() <= 2000 &&
+             data.date is string &&
+             data.category is string;
+    }
+
+    function isValidSiteContent(data) {
+      return data.heroTitle is string && data.heroTitle.size() <= 200 &&
+             data.heroSubtitle is string && data.heroSubtitle.size() <= 500;
+    }
+
+    function isValidContactInfo(data) {
+      return data.address is string && data.email is string;
+    }
+
+    // --- Rules ---
+
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if isVerifiedAdmin() && isValidId(productId) && isValidProduct(incoming());
+      allow update: if isVerifiedAdmin() && isValidId(productId) && isValidProduct(incoming()) && (
+        incoming().diff(existing()).affectedKeys().hasOnly(['name', 'price', 'category', 'image', 'description', 'specs', 'rating', 'reviews', 'updatedAt'])
+      );
+      allow delete: if isVerifiedAdmin();
+    }
+
+    match /blogPosts/{postId} {
+      allow read: if true;
+      allow create: if isVerifiedAdmin() && isValidId(postId) && isValidBlogPost(incoming());
+      allow update: if isVerifiedAdmin() && isValidId(postId) && isValidBlogPost(incoming());
+      allow delete: if isVerifiedAdmin();
+    }
+
+    match /config/siteContent {
+      allow read: if true;
+      allow write: if isVerifiedAdmin() && isValidSiteContent(incoming());
+    }
+
+    match /config/contactInfo {
+      allow read: if true;
+      allow write: if isVerifiedAdmin() && isValidContactInfo(incoming());
+    }
+  }
+}

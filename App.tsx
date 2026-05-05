@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, ShoppingCart, X, Bike, Search, MapPin, Phone, Mail, Instagram, Facebook, Twitter, ArrowRight, ChevronRight, Check, Star, Lock, Plus, Edit, Trash, Save, Layout, Contact, Package, Wrench, FileText } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { PRODUCTS, BLOG_POSTS } from './constants';
 import { Product, CartItem, Category, BlogPost } from './types';
 import { Button } from './components/Button';
@@ -117,6 +118,7 @@ interface SiteContent {
   workshopText: string;
   featuredCategories: FeaturedCategory[];
   benefits: Benefit[];
+  heroVideo: string;
 }
 
 interface ContactInfo {
@@ -160,12 +162,14 @@ const Header = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 text-2xl font-bold text-slate-900 tracking-tight">
-            <Bike className="text-orange-600 h-8 w-8" />
+          <Link to="/" className="flex items-center space-x-2 text-2xl font-black text-slate-900 tracking-tighter group">
+            <div className="bg-orange-600 p-1.5 rounded-lg group-hover:rotate-12 transition-transform duration-300">
+              <Bike className="text-white h-6 w-6" />
+            </div>
             <span>Jorge<span className="text-orange-600">Motos</span></span>
           </Link>
 
@@ -269,47 +273,105 @@ const HomePage = ({ content }: { content: SiteContent }) => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center bg-slate-900">
+      <section className="relative h-[650px] flex items-center bg-slate-900 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop"
-            alt="Cycling Hero" 
-            className="w-full h-full object-cover opacity-40"
-          />
+          <motion.video 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.45 }}
+            transition={{ duration: 1.5 }}
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src={content.heroVideo} type="video/mp4" />
+          </motion.video>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent z-10" />
         </div>
-        <div className="container mx-auto px-4 relative z-10 text-white">
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight whitespace-pre-line">
-            {content.heroTitle}
-          </h1>
-          <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl">
+        <div className="container mx-auto px-4 relative z-20 text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight whitespace-pre-line tracking-tighter">
+              {content.heroTitle}
+            </h1>
+          </motion.div>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl leading-relaxed"
+          >
             {content.heroSubtitle}
-          </p>
-          <div className="flex space-x-4">
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+          >
             <Link to="/shop">
-              <Button size="lg" className="shadow-lg shadow-orange-900/50">Ver Catálogo</Button>
+              <Button size="lg" className="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 shadow-xl shadow-orange-900/30 text-lg px-8 py-6">
+                Ver Catálogo <ArrowRight className="ml-2" />
+              </Button>
             </Link>
             <Link to="/about">
-              <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-slate-900">Conócenos</Button>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto text-white border-white/30 hover:border-white hover:bg-white/10 text-lg px-8 py-6 backdrop-blur-sm">
+                Conócenos
+              </Button>
             </Link>
-          </div>
+          </motion.div>
         </div>
+        
+        {/* Decorative elements */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          transition={{ duration: 2, delay: 1 }}
+          className="absolute bottom-0 right-0 p-12 hidden lg:block"
+        >
+          <div className="w-64 h-64 border-4 border-white/5 rounded-full -mr-32 -mb-32" />
+          <div className="w-96 h-96 border-4 border-white/5 rounded-full -mr-48 -mb-48" />
+        </motion.div>
       </section>
 
       {/* Featured Categories */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-slate-50 overflow-hidden">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">Categorías Destacadas</h2>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold text-center mb-12 text-slate-900"
+          >
+            Categorías Destacadas
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {content.featuredCategories.map((cat, idx) => (
-              <Link to={`/shop?category=${cat.cat}`} key={idx} className="group relative rounded-xl overflow-hidden h-64 shadow-lg">
-                <img src={cat.img} alt={cat.name} className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-1">{cat.name}</h3>
-                    <span className="text-orange-400 font-medium flex items-center">Explorar <ChevronRight size={16} /></span>
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+              >
+                <Link to={`/shop?category=${cat.cat}`} className="group relative rounded-xl overflow-hidden h-64 shadow-lg block">
+                  <img src={cat.img} alt={cat.name} className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-1 tracking-tight">{cat.name}</h3>
+                      <span className="text-orange-400 font-medium flex items-center group-hover:translate-x-1 transition-transform">
+                        Explorar <ChevronRight size={16} className="ml-1" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -935,6 +997,10 @@ const AdminPage = ({ products, siteContent, contactInfo, blogPosts }: AdminProps
                   <input type="text" name="heroTitle" value={siteContent.heroTitle} onChange={handleContentChange} className={inputClass} />
                 </div>
                 <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1">URL Video de Portada (.mp4)</label>
+                  <input type="text" name="heroVideo" value={siteContent.heroVideo} onChange={handleContentChange} className={inputClass} />
+                </div>
+                <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">Subtítulo (Hero)</label>
                   <textarea name="heroSubtitle" rows={2} value={siteContent.heroSubtitle} onChange={handleContentChange} className={inputClass} />
                 </div>
@@ -1346,6 +1412,7 @@ export default function App() {
   const [siteContent, setSiteContent] = useState<SiteContent>({
     heroTitle: "Desata tu Potencial \n Sobre Ruedas",
     heroSubtitle: "Desde bicicletas de montaña de alto rendimiento hasta el repuesto más pequeño. En JorgeMotos tenemos todo lo que necesitas para tu próxima aventura.",
+    heroVideo: "https://player.vimeo.com/external/434045526.sd.mp4?s=c27cf34190701814e5ad08d0d939c0fa3fd50af9&profile_id=164&oauth2_token_id=57447761",
     aboutTitle: "Sobre JorgeMotos",
     aboutText: "Más que una tienda, somos una comunidad. Nacimos en 2010 con un objetivo claro: democratizar el ciclismo de calidad y mantener cada bicicleta rodando en perfectas condiciones.",
     aboutImage: "https://images.unsplash.com/photo-1558522765-b73f8a6142c6?auto=format&fit=crop&q=80&w=800",

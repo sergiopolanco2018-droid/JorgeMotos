@@ -543,9 +543,13 @@ const AdminPage = ({ products, siteContent, contactInfo, blogPosts }: AdminProps
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      setError('Error al iniciar sesión con Google.');
+      if (e.code === 'auth/unauthorized-domain') {
+        setError('Error: Dominio no autorizado. Debes agregar "' + window.location.hostname + '" a la lista de dominios autorizados en la Consola de Firebase -> Authentication -> Settings.');
+      } else {
+        setError('Error al iniciar sesión con Google: ' + (e.message || 'Error desconocido'));
+      }
     }
   };
 
@@ -1436,36 +1440,11 @@ export default function App() {
     setCartItems(prev => prev.filter(item => item.id !== id));
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (cartItems.length === 0) return;
     
-    try {
-      const response = await fetch('/api/create-preference', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: cartItems.map(item => ({
-            id: item.id,
-            title: item.name,
-            quantity: item.quantity,
-            price: item.price
-          })),
-          payerEmail: auth.currentUser?.email || 'test@example.com'
-        }),
-      });
-
-      const data = await response.json();
-      if (data.init_point) {
-        window.location.href = data.init_point;
-      } else {
-        alert("Error al generar el link de pago: " + (data.error || "Desconocido"));
-      }
-    } catch (error) {
-      console.error("Checkout Error:", error);
-      alert("Hubo un error al procesar el pago. Por favor intenta más tarde.");
-    }
+    // Abrimos el link en una pestaña nueva para evitar que Mercado Pago bloquee la conexión dentro del iframe
+    window.open("https://link.mercadopago.com.ar/rodadoslibertador", "_blank");
   };
 
   const totalItems = useMemo(() => cartItems.reduce((acc, item) => acc + item.quantity, 0), [cartItems]);

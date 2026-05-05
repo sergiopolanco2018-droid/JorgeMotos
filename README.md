@@ -61,5 +61,14 @@ Para acceder al panel de administración:
 2. Ingresa la clave maestra (por defecto `admin123`).
 3. Inicia sesión con tu cuenta de Google configurada como administrador.
 
+## Configuración de Firebase para Producción (Vercel)
+
+1. **Dominios Autorizados**:
+   - Ve a la Consola de Firebase -> Authentication -> Settings -> Authorized domains.
+   - Agrega tu dominio de Vercel (ej: `jorge-motos.vercel.app`).
+
+2. **Variables de Entorno**:
+   Asegúrate de que todas las variables en `.env.example` estén configuradas en el panel de Vercel con el prefijo `VITE_`.
+
 ---
 Desarrollado con ❤️ para JorgeMotos.

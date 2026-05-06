@@ -297,19 +297,23 @@ const HomePage = ({ content }: { content: SiteContent }) => {
               muted 
               loop 
               playsInline
+              controls={false}
+              disablePictureInPicture
               preload="auto"
               src={content.heroVideo}
               poster="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover pointer-events-none"
               onLoadedData={() => {
                 console.log("Video cargado exitosamente");
                 setVideoError(false);
+                if (videoRef.current) {
+                  videoRef.current.play().catch(() => {});
+                }
               }}
               onError={(e) => {
                 console.error("Error al cargar el video, usando fallback de imagen", e);
                 setVideoError(true);
               }}
-              style={{ pointerEvents: 'none' }}
             />
           ) : (
             <motion.img 

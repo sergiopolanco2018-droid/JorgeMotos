@@ -170,7 +170,7 @@ const Header = ({
             <div className="bg-orange-600 p-1.5 rounded-lg group-hover:rotate-12 transition-transform duration-300">
               <Bike className="text-white h-6 w-6" />
             </div>
-            <span>Jorge<span className="text-orange-600">Motos</span></span>
+            <span>Rodados<span className="text-orange-600">Libertador</span></span>
           </Link>
 
           {/* Desktop Nav */}
@@ -224,7 +224,7 @@ const Footer = ({ contactInfo }: { contactInfo: ContactInfo }) => (
       <div>
         <div className="flex items-center space-x-2 text-xl font-bold text-white mb-4">
           <Bike className="text-orange-600" />
-          <span>JorgeMotos</span>
+          <span>RodadosLibertador</span>
         </div>
         <p className="text-sm leading-relaxed">
           Especialistas en ciclismo urbano y de montaña. Calidad, servicio y pasión sobre dos ruedas.
@@ -262,7 +262,7 @@ const Footer = ({ contactInfo }: { contactInfo: ContactInfo }) => (
       </div>
     </div>
     <div className="border-t border-slate-800 mt-10 pt-6 text-center text-xs text-slate-500">
-      &copy; 2024 JorgeMotos. Todos los derechos reservados.
+      &copy; 2024 RodadosLibertador. Todos los derechos reservados.
     </div>
   </footer>
 );
@@ -1434,9 +1434,9 @@ export default function App() {
   // Dynamic Content State
   const [siteContent, setSiteContent] = useState<SiteContent>({
     heroTitle: "Desata tu Potencial \n Sobre Ruedas",
-    heroSubtitle: "Desde bicicletas de montaña de alto rendimiento hasta el repuesto más pequeño. En JorgeMotos tenemos todo lo que necesitas para tu próxima aventura.",
+    heroSubtitle: "Desde bicicletas de montaña de alto rendimiento hasta el repuesto más pequeño. En RodadosLibertador tenemos todo lo que necesitas para tu próxima aventura.",
     heroVideo: "https://player.vimeo.com/external/434045526.sd.mp4?s=c27cf34190701814e5ad08d0d939c0fa3fd50af9&profile_id=164&oauth2_token_id=57447761",
-    aboutTitle: "Sobre JorgeMotos",
+    aboutTitle: "Sobre RodadosLibertador",
     aboutText: "Más que una tienda, somos una comunidad. Nacimos en 2010 con un objetivo claro: democratizar el ciclismo de calidad y mantener cada bicicleta rodando en perfectas condiciones.",
     aboutImage: "https://images.unsplash.com/photo-1558522765-b73f8a6142c6?auto=format&fit=crop&q=80&w=800",
     aboutSectionTitle: "Nuestra Pasión",
@@ -1458,7 +1458,7 @@ export default function App() {
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
     address: "Av. Principal 123, Ciudad",
     phone: "+123 456 7890",
-    email: "contacto@jorgemotos.com",
+    email: "contacto@juliomotos.com",
     hoursWeek: "Lunes - Viernes: 9:00 AM - 7:00 PM",
     hoursSat: "Sábados: 10:00 AM - 2:00 PM",
     locationTitle: "Ubicación",

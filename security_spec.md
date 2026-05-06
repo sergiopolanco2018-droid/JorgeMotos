@@ -1,4 +1,4 @@
-# Security Specification - JorgeMotos
+# Security Specification - RodadosLibertador
 
 ## Data Invariants
 - Products and Blog Posts are public for reading but strictly controlled for writing.

@@ -13,7 +13,7 @@ const getModel = () => {
   const genAI = new GoogleGenAI(apiKey);
   model = genAI.getGenerativeModel({ 
     model: "gemini-1.5-flash",
-    systemInstruction: `Eres "JorgeBot", el asistente virtual experto de la tienda "JorgeMotos". 
+    systemInstruction: `Eres "RodadosBot", el asistente virtual experto de la tienda "RodadosLibertador". 
       Tu tono es amigable, profesional y apasionado por el ciclismo.
       
       Tus funciones son:

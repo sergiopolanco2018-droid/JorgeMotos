@@ -10,7 +10,7 @@ export const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'model',
-      text: '¡Hola! Soy JorgeBot 🤖. ¿En qué puedo ayudarte hoy con tu bicicleta o repuestos?',
+      text: '¡Hola! Soy RodadosBot 🤖. ¿En qué puedo ayudarte hoy con tu bicicleta o repuestos?',
       timestamp: new Date()
     }
   ]);
@@ -65,7 +65,7 @@ export const Chatbot: React.FC = () => {
           <div className="bg-slate-900 text-white p-4 rounded-t-lg flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <Bot size={20} className="text-orange-500" />
-              <span className="font-semibold">Soporte JorgeMotos</span>
+              <span className="font-semibold">Soporte RodadosLibertador</span>
             </div>
             <button onClick={() => setIsOpen(false)} className="text-slate-300 hover:text-white">
               <X size={20} />

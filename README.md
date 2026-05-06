@@ -1,4 +1,4 @@
-# JorgeMotos - E-commerce de Ciclismo
+# RodadosLibertador - E-commerce de Ciclismo
 
 Este proyecto es una aplicación web moderna para una tienda de bicicletas y repuestos, construida con React, Vite, Tailwind CSS y Firebase.
 
@@ -65,10 +65,10 @@ Para acceder al panel de administración:
 
 1. **Dominios Autorizados**:
    - Ve a la Consola de Firebase -> Authentication -> Settings -> Authorized domains.
-   - Agrega tu dominio de Vercel (ej: `jorge-motos.vercel.app`).
+   - Agrega tu dominio de Vercel (ej: `rodados-libertador.vercel.app`).
 
 2. **Variables de Entorno**:
    Asegúrate de que todas las variables en `.env.example` estén configuradas en el panel de Vercel con el prefijo `VITE_`.
 
 ---
-Desarrollado con ❤️ para JorgeMotos.
+Desarrollado con ❤️ para RodadosLibertador.

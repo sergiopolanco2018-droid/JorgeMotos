@@ -271,6 +271,15 @@ const Footer = ({ contactInfo }: { contactInfo: ContactInfo }) => (
 
 const HomePage = ({ content }: { content: SiteContent }) => {
   const [videoError, setVideoError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.error("Autoplay bloqueado o falló:", error);
+      });
+    }
+  }, [content.heroVideo]);
 
   return (
     <div>
@@ -279,6 +288,7 @@ const HomePage = ({ content }: { content: SiteContent }) => {
         <div className="absolute inset-0 z-0">
           {!videoError && content.heroVideo ? (
             <motion.video 
+              ref={videoRef}
               key={content.heroVideo}
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.45 }}
@@ -299,6 +309,7 @@ const HomePage = ({ content }: { content: SiteContent }) => {
                 console.error("Error al cargar el video, usando fallback de imagen", e);
                 setVideoError(true);
               }}
+              style={{ pointerEvents: 'none' }}
             />
           ) : (
             <motion.img 

@@ -270,23 +270,46 @@ const Footer = ({ contactInfo }: { contactInfo: ContactInfo }) => (
 // --- Pages ---
 
 const HomePage = ({ content }: { content: SiteContent }) => {
+  const [videoError, setVideoError] = useState(false);
+
   return (
     <div>
       {/* Hero Section */}
       <section className="relative h-[650px] flex items-center bg-slate-900 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <motion.video 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.45 }}
-            transition={{ duration: 1.5 }}
-            autoPlay 
-            muted 
-            loop 
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src={content.heroVideo} type="video/mp4" />
-          </motion.video>
+          {!videoError && content.heroVideo ? (
+            <motion.video 
+              key={content.heroVideo}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.45 }}
+              transition={{ duration: 1.5 }}
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              preload="auto"
+              src={content.heroVideo}
+              poster="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop"
+              className="w-full h-full object-cover"
+              onLoadedData={() => {
+                console.log("Video cargado exitosamente");
+                setVideoError(false);
+              }}
+              onError={(e) => {
+                console.error("Error al cargar el video, usando fallback de imagen", e);
+                setVideoError(true);
+              }}
+            />
+          ) : (
+            <motion.img 
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.45 }}
+              transition={{ duration: 1.5 }}
+              src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop"
+              alt="Cycling Hero Fallback" 
+              className="w-full h-full object-cover"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent z-10" />
         </div>
         <div className="container mx-auto px-4 relative z-20 text-white">

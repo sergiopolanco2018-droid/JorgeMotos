@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, ShoppingCart, X, Bike, Search, MapPin, Phone, Mail, Instagram, Facebook, Twitter, ArrowRight, ChevronRight, Check, Star, Lock, Plus, Edit, Trash, Save, Layout, Contact, Package, Wrench, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';

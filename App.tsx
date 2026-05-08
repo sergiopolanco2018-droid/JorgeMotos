@@ -1078,6 +1078,10 @@ const AdminPage = ({ products, siteContent, contactInfo, blogPosts }: AdminProps
                     <label className="block text-sm font-bold text-slate-700 mb-1">Párrafo Introductorio</label>
                     <textarea name="aboutText" rows={4} value={siteContent.aboutText} onChange={handleContentChange} className={inputClass} />
                   </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">URL Imagen de la Sección</label>
+                    <input type="text" name="aboutImage" value={siteContent.aboutImage} onChange={handleContentChange} className={inputClass} />
+                  </div>
                 </div>
                 <div className="space-y-4">
                   <div>

@@ -130,6 +130,9 @@ interface ContactInfo {
   locationTitle: string;
   hoursTitle: string;
   contactTitle: string;
+  instagram: string;
+  facebook: string;
+  twitter: string;
 }
 
 // --- Helper Components for Layout ---
@@ -250,9 +253,15 @@ const Footer = ({ contactInfo }: { contactInfo: ContactInfo }) => (
       <div>
         <h4 className="text-white font-semibold mb-4">Síguenos</h4>
         <div className="flex space-x-4">
-          <a href="#" className="bg-slate-800 p-2 rounded-full hover:bg-orange-600 transition"><Facebook size={18}/></a>
-          <a href="#" className="bg-slate-800 p-2 rounded-full hover:bg-orange-600 transition"><Instagram size={18}/></a>
-          <a href="#" className="bg-slate-800 p-2 rounded-full hover:bg-orange-600 transition"><Twitter size={18}/></a>
+          {contactInfo.facebook && (
+            <a href={contactInfo.facebook} target="_blank" rel="noopener noreferrer" className="bg-slate-800 p-2 rounded-full hover:bg-orange-600 transition"><Facebook size={18}/></a>
+          )}
+          {contactInfo.instagram && (
+            <a href={contactInfo.instagram} target="_blank" rel="noopener noreferrer" className="bg-slate-800 p-2 rounded-full hover:bg-orange-600 transition"><Instagram size={18}/></a>
+          )}
+          {contactInfo.twitter && (
+            <a href={contactInfo.twitter} target="_blank" rel="noopener noreferrer" className="bg-slate-800 p-2 rounded-full hover:bg-orange-600 transition"><Twitter size={18}/></a>
+          )}
         </div>
         <div className="mt-6">
           <Link to="/admin" className="text-xs text-slate-600 hover:text-orange-500 flex items-center">
@@ -1207,6 +1216,25 @@ const AdminPage = ({ products, siteContent, contactInfo, blogPosts }: AdminProps
                </div>
             </div>
 
+            {/* Section 4: Social Media */}
+            <div className="bg-white border border-slate-200 p-4 rounded-lg shadow-sm">
+               <h3 className="font-bold text-slate-800 mb-4 flex items-center">🌐 Redes Sociales</h3>
+               <div className="space-y-4">
+                 <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Instagram URL</label>
+                    <input type="text" name="instagram" value={contactInfo.instagram} onChange={handleContactChange} placeholder="https://instagram.com/tu_cuenta" className={inputClass} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Facebook URL</label>
+                    <input type="text" name="facebook" value={contactInfo.facebook} onChange={handleContactChange} placeholder="https://facebook.com/tu_pagina" className={inputClass} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Twitter / X URL</label>
+                    <input type="text" name="twitter" value={contactInfo.twitter} onChange={handleContactChange} placeholder="https://twitter.com/tu_cuenta" className={inputClass} />
+                  </div>
+               </div>
+            </div>
+
             <div className="bg-blue-50 text-blue-800 p-4 rounded text-sm mt-4">
               ℹ️ Los cambios en los títulos y contenidos se reflejarán instantáneamente en la página de Contacto.
             </div>
@@ -1297,14 +1325,35 @@ const ContactPage = ({ contactInfo }: { contactInfo: ContactInfo }) => (
              </div>
            </div>
 
-           <div className="bg-white p-6 rounded-xl shadow-md flex items-start">
-             <Phone className="text-orange-600 mt-1 mr-4 flex-shrink-0" />
-             <div>
-               <h3 className="font-bold text-slate-900">{contactInfo.contactTitle}</h3>
-               <p className="text-slate-600">{contactInfo.phone}</p>
-               <p className="text-sm text-slate-400 mt-1">{contactInfo.email}</p>
-             </div>
-           </div>
+            <div className="bg-white p-6 rounded-xl shadow-md flex items-start">
+              <Phone className="text-orange-600 mt-1 mr-4 flex-shrink-0" />
+              <div>
+                <h3 className="font-bold text-slate-900">{contactInfo.contactTitle}</h3>
+                <p className="text-slate-600">{contactInfo.phone}</p>
+                <p className="text-sm text-slate-400 mt-1">{contactInfo.email}</p>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <h3 className="font-bold text-slate-900 mb-4">Nuestras Redes</h3>
+              <div className="flex space-x-4">
+                {contactInfo.facebook && (
+                  <a href={contactInfo.facebook} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-100 rounded-lg text-slate-600 hover:bg-orange-600 hover:text-white transition-all shadow-sm">
+                    <Facebook size={20} />
+                  </a>
+                )}
+                {contactInfo.instagram && (
+                  <a href={contactInfo.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-100 rounded-lg text-slate-600 hover:bg-orange-600 hover:text-white transition-all shadow-sm">
+                    <Instagram size={20} />
+                  </a>
+                )}
+                {contactInfo.twitter && (
+                  <a href={contactInfo.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-100 rounded-lg text-slate-600 hover:bg-orange-600 hover:text-white transition-all shadow-sm">
+                    <Twitter size={20} />
+                  </a>
+                )}
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -1478,7 +1527,10 @@ export default function App() {
     hoursSat: "Sábados: 10:00 AM - 2:00 PM",
     locationTitle: "Ubicación",
     hoursTitle: "Horarios",
-    contactTitle: "Llámanos"
+    contactTitle: "Llámanos",
+    instagram: "",
+    facebook: "",
+    twitter: ""
   });
 
   // Real-time synchronization with Firebase

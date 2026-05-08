@@ -1259,7 +1259,13 @@ const AboutPage = ({ content }: { content: SiteContent }) => (
     </div>
     
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
-      <img src={content.aboutImage} alt="Workshop" className="rounded-xl shadow-xl w-full h-[400px] object-cover" />
+      <div className="rounded-2xl overflow-hidden shadow-2xl bg-white">
+        <img 
+          src={content.aboutImage} 
+          alt="Nosotros" 
+          className="w-full h-auto block transform hover:scale-[1.02] transition-transform duration-500" 
+        />
+      </div>
       <div>
         <h2 className="text-2xl font-bold mb-4">{content.aboutSectionTitle}</h2>
         <p className="text-slate-600 mb-4 whitespace-pre-line leading-relaxed">
@@ -1506,7 +1512,7 @@ export default function App() {
     heroVideo: "https://player.vimeo.com/external/434045526.sd.mp4?s=c27cf34190701814e5ad08d0d939c0fa3fd50af9&profile_id=164&oauth2_token_id=57447761",
     aboutTitle: "Sobre RodadosLibertador",
     aboutText: "Más que una tienda, somos una comunidad. Nacimos en 2010 con un objetivo claro: democratizar el ciclismo de calidad y mantener cada bicicleta rodando en perfectas condiciones.",
-    aboutImage: "https://images.unsplash.com/photo-1558522765-b73f8a6142c6?auto=format&fit=crop&q=80&w=800",
+    aboutImage: "https://res.cloudinary.com/dwbeerqph/image/upload/v1778205466/fotorodados_gfivyy.jpg",
     aboutSectionTitle: "Nuestra Pasión",
     aboutSectionText: "Cada miembro de nuestro equipo es un ciclista activo. Entendemos lo que significa estar a mitad de una ruta y necesitar confianza absoluta en tu equipo.\n\nNos especializamos no solo en la venta, sino en el conocimiento técnico. Ya sea que busques rasurar segundos en tu crono o simplemente llegar seguro al trabajo, hablamos tu idioma.",
     workshopTitle: "Taller Mecánico Certificado",

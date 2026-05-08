@@ -1522,15 +1522,15 @@ export default function App() {
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
     address: "Av. Principal 123, Ciudad",
     phone: "+123 456 7890",
-    email: "contacto@juliomotos.com",
+    email: "contacto@rodadoslibertador.com",
     hoursWeek: "Lunes - Viernes: 9:00 AM - 7:00 PM",
     hoursSat: "Sábados: 10:00 AM - 2:00 PM",
     locationTitle: "Ubicación",
     hoursTitle: "Horarios",
     contactTitle: "Llámanos",
-    instagram: "",
-    facebook: "",
-    twitter: ""
+    instagram: "https://instagram.com/rodadoslibertador",
+    facebook: "https://facebook.com/rodadoslibertador",
+    twitter: "https://twitter.com/rodadoslibert"
   });
 
   // Real-time synchronization with Firebase
@@ -1561,7 +1561,7 @@ export default function App() {
 
     const unsubContact = onSnapshot(doc(db, 'config', 'contactInfo'), (snapshot) => {
       if (snapshot.exists()) {
-        setContactInfo(snapshot.data() as ContactInfo);
+        setContactInfo(prev => ({ ...prev, ...snapshot.data() }));
       }
     }, (error) => handleFirestoreError(error, OperationType.GET, 'config/contactInfo'));
 
